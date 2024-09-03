@@ -26,13 +26,9 @@ function App() {
     //     })
     // }, [dispatch])
 
-    // // lấy danh sách bài tập khi load trang
-    // useEffect(() => {
-    //     if (auth.token) {
-    //         dispatch(getCodeExerCises(auth.token))
-    //         dispatch(getQueueCodeExercises(auth.token))
-    //     }
-    // }, [dispatch, auth.token])
+    // lấy danh sách banners khi load trang
+
+    // lấy danh sách policy khi load trang
 
     // if (!isLoaded) {
     //     return <Loading />;

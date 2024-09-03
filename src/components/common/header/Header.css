@@ -1,0 +1,28 @@
+.s-btn .icon-button {
+    padding: 0;
+    margin: 0;
+    padding-left: 6px;
+}
+
+@media screen and (max-width: 1300px) {
+    .search-bar {
+        display: none;
+    }
+
+    .nav-bar {
+        display: none;
+    }
+}
+
+.nav-bar {
+    color: #f8e71c;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: #f8e71c;
+}
+
+.nav-bar li {
+    list-style-type: none;
+}

@@ -41,14 +41,29 @@ const Home = () => {
             <div className={`SideBar pt-5 flex flex-col ${isSideBarOpen ? '' : 'hidden'}`}>
                 <AdminSideBar />
             </div>
-            <Headroom className="Headroom" disable={isSideBarOpen}>
+            <Headroom className="Headroom" disable={isSideBarOpen} >
                 <Header setIsSideBarOpen={setIsSideBarOpen} />
             </Headroom>
 
             <body className='body-container flex mt-25 flex-col items-center w-full h-auto'>
-                <div className="banner-container body-content flex flex-col items-start">
-                    <BannerCarousel />
+                {/* Category Title and Banner */}
+                <div className="banner-container body-content flex flex-row items-start w-full h-[400px]">
+                    <div className="menu-category-title flex flex-col w-[20%] ">
+                        <div className="title">Danh Mục Sản Phẩm</div>
+                        <div className="category-list flex flex-col">
+                            <a href="/category1" className="category-item">Category 1</a>
+                            <a href="/category2" className="category-item">Category 2</a>
+                            <a href="/category3" className="category-item">Category 3</a>
+                            <a href="/category4" className="category-item">Category 4</a>
+                            <a href="/category5" className="category-item">Category 5</a>
+                        </div>
+                    </div>
+                    <div className="banner w-[80%] h-full">
+                        <BannerCarousel />
+                    </div>
                 </div>
+
+                {/* Policy */}
                 <div className="policy-container flex flex-row flex-wrap pt-10">
                     {policies.map(policy => (
                         <div className="policy-card flex flex-col items-center">
@@ -60,6 +75,8 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
+
+                {/* Featured Products */}
             </body>
 
         </div>

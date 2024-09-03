@@ -9,13 +9,13 @@ import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
 const banners = [
     {
         id: 1,
-        image: 'https://file.hstatic.net/200000317829/file/600x700_528ffec18ea74b4786039ba95f79c937.png',
+        image: 'https://file.hstatic.net/200000317829/file/1920x760-1_d3d9fccab54d4f55ab0d29832636827c.png',
         alt: 'Giảm giá mùa hè 50%',
         link: '/promotion1'
     },
     {
         id: 2,
-        image: 'https://file.hstatic.net/200000317829/file/600x700-1_095e2bf774764045ab3ce8c228b3a803.png',
+        image: 'https://file.hstatic.net/200000317829/file/1920x760_ee544232a6f9431eb8ea916de1104cf1.png',
         alt: 'Sản phẩm mới nhất',
         link: '/promotion2'
     },
@@ -28,9 +28,9 @@ const banners = [
     // Thêm các banner khác tại đây
 ];
 
-const BannerCarousel = () => {
+const BannerCarousel = ({ className }) => {
     return (
-        <div className="flex w-full justify-center items-center">
+        <div className={"flex w-full justify-center items-center " + className}>
             <Swiper
                 modules={[Navigation, Pagination, Autoplay, EffectFade]}
                 spaceBetween={30}
@@ -48,7 +48,8 @@ const BannerCarousel = () => {
                             <img
                                 src={banner.image}
                                 alt={banner.alt}
-                                className="w-full h-auto max-w-[50%] "
+                                className="w-auto h-full max-h-[400px] max-w-[100%] object-cover"
+                                z-index={1}
                             />
                         </a>
                     </SwiperSlide>
