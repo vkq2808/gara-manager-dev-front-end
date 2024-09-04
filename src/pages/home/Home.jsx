@@ -199,7 +199,7 @@ const Home = () => {
     }
 
     return (
-        <div className='flex flex-col w-full h-auto'>
+        <div className='flex flex-col w-full h-auto items-center text-[#212529]'>
             <div
                 onClick={() => setIsSideBarOpen(false)}
                 className={`BodyCover flex flex-row ${isSideBarOpen ? '' : 'hidden'}`}>
@@ -211,17 +211,19 @@ const Home = () => {
                 <Header setIsSideBarOpen={setIsSideBarOpen} />
             </Headroom>
 
-            <body className='body-container flex mt-25 flex-col items-center w-full h-auto'>
+            <body className='body-container flex flex-col items-center w-full h-auto'>
                 {/* Category Title and Banner */}
                 <div className="banner-container body-content flex flex-row items-start w-full h-full">
                     <div className="menu-category-container flex flex-col w-[20%] ">
-                        <div className='flex flex-row items-center p-2 bg-black text-[#f8e71c]'>
+                        <div className='flex flex-row items-center p-2 bg-black text-[--yellow-color]'>
                             <i className='lni lni-menu' />
                             <div className="title font-semibold pl-4">Danh Mục Sản Phẩm</div>
                         </div>
                         <div className="category-list flex flex-col items-start">
                             {categories.map(cate => (
-                                <div className={`category-item flex flex-row items-center jusify-between h-auto w-full ${cate.id == categorySelected?.id ? "bg-slate-500" : "bg-gray-100"} text-black cursor-pointer`}
+                                <div className={`category-item flex flex-row items-center jusify-between h-auto w-full `
+                                    + `${cate.id == categorySelected?.id ? +"bg-[#ffffff]" : "bg-[--cate-bg-color]"} `
+                                    + `text-black cursor-pointer`}
                                     onMouseEnter={() => onCategoryMouseEnter(cate)}
                                     onMouseLeave={() => setIsHoveringCategory(false)}
                                 >

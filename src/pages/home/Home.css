@@ -1,5 +1,6 @@
 :root {
     --yellow-color: #f8e71c;
+    --cate-bg-color: #f7f7f7;
 }
 
 .product-name,
@@ -36,7 +37,7 @@
 }
 
 .Headroom {
-    height: 120px !important;
+    height: 116px !important;
     z-index: 9;
 }
 
