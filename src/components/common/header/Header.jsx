@@ -9,7 +9,7 @@ const Header = ({ setIsSideBarOpen }) => {
 
     return (
         <div className='flex flex-col px-[20%] border-none z-10 bg-white'>
-            <header className="PageHeader flex flex-col md:flex-row justify-between items-center border-b border-b-black  py-4">
+            <header className="PageHeader flex flex-col md:flex-row justify-between items-center border-b border-b-black">
                 <div className="HomeIcon flex m-2">
                     <a href="/">
                         <img

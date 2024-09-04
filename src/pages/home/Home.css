@@ -1,3 +1,12 @@
+:root {
+    --yellow-color: #f8e71c;
+}
+
+.product-name,
+.sub-category-title {
+    border-bottom: 1px solid #606060;
+}
+
 .SideBar {
     background-color: #303030;
     position: fixed;
@@ -27,19 +36,43 @@
 }
 
 .Headroom {
-    height: 184px !important;
-    z-index: 20;
+    height: 120px !important;
+    z-index: 9;
 }
 
 .body-content {
-    width: 70%;
-    max-width: 1000px;
+    width: 90%;
+    max-width: 1300px;
+}
+
+.banner-container {
+    height: 400px;
 }
 
 @media screen and (max-width: 1300px) {
     .Headroom {
-        height: 124px !important;
+        height: 84px !important;
     }
+
+    .menu-category-container {
+        display: none;
+    }
+
+    .banner-container {
+        max-width: 700px;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+        place-items: center;
+        align-content: center;
+    }
+}
+
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #dcdcdc;
 }
 
 @media screen and (max-width: 800px) {
