@@ -185,6 +185,8 @@ const Home = () => {
         }
     ]
 
+
+
     useEffect(() => {
         if (!isHoveringCategory && !isHoveringPanel) {
             setCategorySelected(null);
@@ -211,7 +213,7 @@ const Home = () => {
                 <Header setIsSideBarOpen={setIsSideBarOpen} />
             </Headroom>
 
-            <body className='body-container flex flex-col items-center w-full h-auto'>
+            <body className='body-container flex flex-col place-items-center items-center w-full h-auto'>
                 {/* Category Title and Banner */}
                 <div className="banner-container body-content flex flex-row items-start w-full h-full">
                     <div className="menu-category-container flex flex-col w-[20%] ">
@@ -228,7 +230,7 @@ const Home = () => {
                                     onMouseLeave={() => setIsHoveringCategory(false)}
                                 >
                                     <div className='flex flex-row  w-full items-center h-[45px] '>
-                                        <span className='category-icon'>
+                                        <span className='category-icon pl-2'>
                                             <img src={cate.imgSrc} alt={cate.name} className='w-[20px] h-[20px]' />
                                         </span>
                                         <div className='category-name pl-2'>{cate.name}</div>
@@ -241,9 +243,9 @@ const Home = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="banner w-[80%] h-full">
-                        {!categorySelected && <BannerCarousel className={"flex bg-black"} />}
-                        <div className="sticky-category-panel z-8 flex flex-row flex-wrap bg-slate-200"
+                    <div className={`banner flex w-[80%] h-full`}>
+                        {!categorySelected && <BannerCarousel className={" bg-black"} />}
+                        <div className="category-panel z-8 flex flex-row flex-wrap bg-slate-200"
                             onMouseEnter={() => setIsHoveringPanel(true)}
                             onMouseLeave={() => setIsHoveringPanel(false)}
                         >
@@ -264,7 +266,7 @@ const Home = () => {
                 </div>
 
                 {/* Policy */}
-                <div className="policy-container flex flex-row flex-wrap pt-10">
+                <div className="policy-container flex flex-row justify-between flex-wrap pt-10 px-5">
                     {policies.map(policy => (
                         <div className="policy-card flex flex-col items-center">
                             <img src={policy.imgSrc} alt={policy.title} />

@@ -36,7 +36,7 @@ const BannerCarousel = ({ className }) => {
     const [isSmallDevice, setIsSmallDevice] = React.useState(false);
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth <= 1300) {
+        if (window.innerWidth <= 1000) {
             setIsSmallDevice(true);
         } else {
             setIsSmallDevice(false);
@@ -54,7 +54,7 @@ const BannerCarousel = ({ className }) => {
                 autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }} // tự động chuyển slide sau 5s, không bị dừng khi người dùng chạm vào slide, dừng khi rê chuột vào slide
                 loop
                 effect="cube"
-                className="mySwiper h-full w-full flex justify-center items-center"
+                className="mySwiper flex justify-center items-center"
             >
                 {banners.map(banner => (
                     <SwiperSlide key={banner.id} className='flex justify-center items-center'>
@@ -62,7 +62,7 @@ const BannerCarousel = ({ className }) => {
                             <img
                                 src={isSmallDevice ? banner.smallDeviceImage : banner.image}
                                 alt={banner.alt}
-                                className={` h-full ${isSmallDevice ? "w-full" : "w-[1040px] [max-h-400px]"} object-cover flex items-center justify-center content-center`}
+                                className={` h-full w-auto max-h-[400px] object-cover flex items-center justify-center content-center`}
                                 z-index={1}
                             />
                         </a>
