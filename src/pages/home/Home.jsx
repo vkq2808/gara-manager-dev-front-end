@@ -367,7 +367,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* Policy */}
+                {/* POLICIES */}
                 <div className="policy-container flex flex-row justify-between flex-wrap pt-10 px-5">
                     {policies.map(policy => (
                         <div key={policy.title} className="policy-card flex flex-col items-center mx-4">
@@ -380,15 +380,18 @@ const Home = () => {
                     ))}
                 </div>
 
-                {/* Banner  */}
+                {/* BANNER  */}
                 <div className="banner-container flex flex-row justify-between flex-wrap w-full p-2">
                     {banners.map(banner => (
-                        <a key={banner.link} href={banner.link} className="">
-                            <img src={banner.imgSrc} alt="banner" className='w-auto h-[200px] my-3 mx-4' />
-                        </a>
+                        <div key={banner.link} className='banner-card'>
+                            <a href={banner.link} className="banner-content">
+                                <img src={banner.imgSrc} alt="banner" className='w-auto h-[200px] my-3 mx-4' />
+                            </a>
+                            <div className="gradient-box" />
+                        </div>
                     ))}
                 </div>
-
+                {/* CATEGORIES AND SERVICES*/}
                 <div id="categories-and-services-container"
                     className="flex flex-col width-full bg-white">
                     <h2 className='underline-title m-2'>
