@@ -8,7 +8,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
-
 const Home = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
     const [categorySelected, setCategorySelected] = useState(null);
@@ -426,9 +425,11 @@ const Home = () => {
                         </Swiper>
                     </div>
                 </div>
+                <Footer>
+
+                </Footer>
             </div>
         </div>
     );
 }
-
 export default Home;
