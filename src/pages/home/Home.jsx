@@ -8,6 +8,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
+import Footer from '../../components/common/footer/Footer';
+
 const Home = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
     const [categorySelected, setCategorySelected] = useState(null);
@@ -396,11 +398,11 @@ const Home = () => {
                     <h2 className='underline-title m-2'>
                         DANH MỤC SẢN PHẨM VÀ DỊCH VỤ
                     </h2>
-                    <div className="block max-w-[1300px] p-2 px-10">
+                    <div className="slider-container block max-w-[1300px] p-2 px-10">
                         <Swiper
                             modules={[Navigation, Pagination, EffectFade]}
                             spaceBetween={10}
-                            slidesPerView={filteredCategories.length > 4 ? 4 : filteredCategories.length}
+                            slidesPerView={"filteredCategories.length > 4 ? 4 : filteredCategories.length"}
                             navigation={{ nextEl: '.swiper-button-next-category-slider', prevEl: '.swiper-button-prev-category-slider' }}
                             pagination={{ clickable: true }}
                             effect='cube'
@@ -410,6 +412,7 @@ const Home = () => {
                         >
                             {filteredCategories.concat(filteredCategories).map(cate => (
                                 <SwiperSlide key={"cate-slider-" + cate.id} className='flex flex-col items-center'>
+                                    <div className='cate-name text-center text-lg font-semibold'>{cate.name}</div>
                                     <a href={cate.link} className='w-full flex justify-center items-center content-center'>
                                         <img
                                             src={cate.imgSrc}
@@ -417,7 +420,6 @@ const Home = () => {
                                             className='w-auto h-full max-h-[152px] object-cover'
                                         />
                                     </a>
-                                    <div className='cate-name text-center text-lg font-semibold'>{cate.name}</div>
                                 </SwiperSlide>
                             ))}
                             <div className="btn swiper-button-prev-category-slider" onClick={handlePrev} ><i class="fa-solid fa-chevron-left"></i></div>
@@ -425,10 +427,8 @@ const Home = () => {
                         </Swiper>
                     </div>
                 </div>
-                <Footer>
-
-                </Footer>
             </div>
+            <Footer />
         </div>
     );
 }
