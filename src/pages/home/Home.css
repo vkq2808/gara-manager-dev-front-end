@@ -3,6 +3,79 @@
     --cate-bg-color: #f7f7f7;
 }
 
+.swiper-container {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    min-height: 0;
+    min-width: 0;
+}
+
+.swiper-slide {
+    width: auto;
+    flex-shrink: 0;
+    display: block;
+    height: 100%;
+    max-height: 100%;
+}
+
+.underline-title {
+    position: relative;
+    display: inline-block;
+}
+
+.underline-title::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    left: 0;
+    bottom: -5px;
+}
+
+.swiper-button-prev-category-slider {
+    justify-items: center;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    position: absolute;
+}
+
+.swiper-button-next-category-slider {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    position: absolute;
+}
+
+.swiper .fa-solid {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+}
+
+.swiper .btn {
+    background-color: #f8e71c;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cate-slider {
+    width: 95%;
+}
+
+.swiper-wrapper {
+    max-height: 100%;
+    height: 100%;
+    display: flex;
+}
+
 .product-name,
 .sub-category-title {
     border-bottom: 1px solid #606060;
@@ -42,12 +115,8 @@
     z-index: 9;
 }
 
-.body-content {
-    max-width: 1300px;
-}
-
-.banner-container {
-    height: 400px;
+.body-container {
+    width: 1300px;
 }
 
 .category-item {
@@ -84,7 +153,17 @@
     font-size: small;
 }
 
+@media screen and (max-width: 1256px) {
+    .banner-container {
+        justify-content: center;
+    }
+}
+
 @media screen and (max-width: 1300px) {
+    .body-container {
+        width: 100%;
+    }
+
     .Headroom {
         width: auto;
         height: 84px !important;
@@ -94,14 +173,13 @@
         display: none;
     }
 
-    .banner-container {
+    .category-slider-container {
         display: flex;
         justify-content: center;
         max-height: 500px;
     }
 
-    .banner {
-        width: 100%;
+    .slider-container {
         height: auto;
         max-height: 500px;
     }

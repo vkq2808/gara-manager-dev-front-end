@@ -4,9 +4,9 @@ import './IconButton.css';
 
 const IconButton = ({ iconClassName, onClick }) => {
     return (
-        <button onClick={onClick} className="icon-button">
+        <div onClick={onClick} className="icon-button">
             <i className={"fas " + iconClassName}></i> {/* Thẻ <i> cho icon */}
-        </button>
+        </div>
     );
 }
 
