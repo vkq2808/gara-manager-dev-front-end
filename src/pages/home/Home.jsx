@@ -16,7 +16,7 @@ const Home = () => {
     const [isHoveringCategory, setIsHoveringCategory] = useState(false);
     const [isHoveringPanel, setIsHoveringPanel] = useState(false);
     const [isSmallDevice, setIsSmallDevice] = React.useState(false);
-
+    const [cateSwiperItemCount, setCateSwiperItemCount] = React.useState(4);
     const policies = [
         {
             imgSrc: "https://file.hstatic.net/200000265255/file/static-icons-3_bf2d3625ab414276a01c726228fd46c0.png",
@@ -266,9 +266,13 @@ const Home = () => {
 
     window.addEventListener('resize', () => {
         if (window.innerWidth <= 1000) {
+            setCateSwiperItemCount(2);
             setIsSmallDevice(true);
         } else {
             setIsSmallDevice(false);
+            if (window.innerWidth <= 1200) {
+                setCateSwiperItemCount(3);
+            }
         }
     });
 
@@ -321,7 +325,7 @@ const Home = () => {
                             <div className='h-full w-full bg-black'>
                                 <Swiper
                                     modules={[Navigation, Pagination, Autoplay, EffectFade]}
-                                    spaceBetween={30}
+                                    spaceBetween={100}
                                     slidesPerView={1}
                                     navigation={{ nextEl: '.swiper-button-next-panel-slider', prevEl: '.swiper-button-prev-panel-slider' }}
                                     pagination={{ clickable: true }}
@@ -398,11 +402,11 @@ const Home = () => {
                     <h2 className='underline-title m-2'>
                         DANH MỤC SẢN PHẨM VÀ DỊCH VỤ
                     </h2>
-                    <div className="slider-container block max-w-[1300px] p-2 px-10">
+                    <div className={`slider-container block max-w-[1300px] p-2 px-10`}>
                         <Swiper
                             modules={[Navigation, Pagination, EffectFade]}
                             spaceBetween={10}
-                            slidesPerView={"filteredCategories.length > 4 ? 4 : filteredCategories.length"}
+                            slidesPerView={cateSwiperItemCount}
                             navigation={{ nextEl: '.swiper-button-next-category-slider', prevEl: '.swiper-button-prev-category-slider' }}
                             pagination={{ clickable: true }}
                             effect='cube'

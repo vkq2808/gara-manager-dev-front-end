@@ -12,6 +12,19 @@
     padding-right: 0.5rem;
 }
 
+.help-option-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.help-option-container .help-option-item {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 @media screen and (max-width: 1300px) {
     .footer-content {
         display: flex;

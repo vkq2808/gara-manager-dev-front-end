@@ -222,7 +222,6 @@
     }
 
     .slider-container {
-        height: auto;
-        max-height: 500px;
+        width: 100%;
     }
 }
