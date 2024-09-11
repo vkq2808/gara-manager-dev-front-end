@@ -35,16 +35,28 @@ const Footer = () => {
                     Hỗ trợ
                 </div>
                 <div className="help-option-item">
-                    <a href="#">Giới thiệu</a>
+                    <a href="/about-us">Giới thiệu</a>
                 </div>
                 <div className="help-option-item">
-                    <a href="#">Chính sách đổi trả</a>
+                    <a href="return-policy">Chính sách đổi trả</a>
                 </div>
                 <div className="help-option-item">
-                    <a href="#">Chính sách bảo mật</a>
+                    <a href="security-policy">Chính sách bảo mật</a>
                 </div>
                 <div className="help-option-item">
-                    <a href="#">Điều khoản dịch vụ</a>
+                    <a href="term-and-service">Điều khoản dịch vụ</a>
+                </div>
+            </div>
+        );
+    }
+    const LogoCol = () => {
+        return (
+            <div className="logo-container flex flex-col max-w-[25%] text-left text-wrap text-md m-2">
+                <div className="logo-title font-semibold text-lg m-2">
+                    Logo
+                </div>
+                <div className="logo-content">
+                    <img src="https://via.placeholder.com/150" alt="logo" />
                 </div>
             </div>
         );
@@ -54,9 +66,10 @@ const Footer = () => {
         <footer className="flex w-full pt-4">
             <div className="flex footer-container container w-full justify-center">
                 <div className="footer-content w-[80%]">
-                    <div className="flex flex-row flex-wrap w-full justify-between">
+                    <div className="flex flex-row flex-wrap w-full justify-between m-2">
                         <ContactCol />
                         <HelpOptionCol />
+                        <LogoCol />
                     </div>
                     <p>© 2024 All rights reserved</p>
                 </div>

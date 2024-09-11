@@ -286,7 +286,7 @@ const Home = () => {
                 <AdminSideBar />
             </div>
 
-            <Headroom className="Headroom" disable={isSideBarOpen} >
+            <Headroom className="Headroom w-full" disable={isSideBarOpen} >
                 <Header setIsSideBarOpen={setIsSideBarOpen} />
             </Headroom>
 
@@ -415,7 +415,7 @@ const Home = () => {
                             className='cate-slider'
                         >
                             {filteredCategories.concat(filteredCategories).map(cate => (
-                                <SwiperSlide key={"cate-slider-" + cate.id} className='flex flex-col items-center'>
+                                <SwiperSlide key={"cate-slider-" + cate.id} className='cate-card flex flex-col items-center'>
                                     <div className='cate-name text-center text-lg font-semibold'>{cate.name}</div>
                                     <a href={cate.link} className='w-full flex justify-center items-center content-center'>
                                         <img
@@ -424,6 +424,7 @@ const Home = () => {
                                             className='w-auto h-full max-h-[152px] object-cover'
                                         />
                                     </a>
+                                    <div className="gradient-box" />
                                 </SwiperSlide>
                             ))}
                             <div className="btn swiper-button-prev-category-slider" onClick={handlePrev} ><i class="fa-solid fa-chevron-left"></i></div>
