@@ -56,7 +56,11 @@ const Footer = () => {
                     Logo
                 </div>
                 <div className="logo-content">
-                    <img src="https://via.placeholder.com/150" alt="logo" />
+                    <img src="https://via.placeholder.com/125" alt="logo" />
+                </div>
+                <div className="social-link flex m-2">
+                    <a href="https://www.facebook.com/quoc.vhp"><i className="lni lni-facebook-original"></i></a>
+                    <a href="https://www.instagram.com/quoc.vhp"><i className="lni lni-instagram-original text-red-600"></i></a>
                 </div>
             </div>
         );

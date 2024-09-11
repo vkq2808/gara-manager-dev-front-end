@@ -53,6 +53,7 @@ function App() {
                                 <Route exact path="/:page/:id/:action" Component={() => <PrivateRouter path="/:page/:id/:action" />} />
                             </>
                         )} */}
+
                 </Routes>
             </div>
             {/* </SocketClient> */}
