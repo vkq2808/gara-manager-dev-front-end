@@ -30,7 +30,7 @@ const Footer = () => {
 
     const HelpOptionCol = () => {
         return (
-            <div className="help-option-container flex flex-col max-w-[25%] text-left text-wrap text-md">
+            <div className="help-option-container flex flex-col max-w-[25%] text-left text-wrap text-md pr-20">
                 <div className="help-option-title font-semibold text-lg">
                     Hỗ trợ
                 </div>
@@ -51,11 +51,11 @@ const Footer = () => {
     }
     const LogoCol = () => {
         return (
-            <div className="logo-container flex flex-col max-w-[25%] text-left text-wrap text-md m-2">
-                <div className="logo-title font-semibold text-lg m-2">
+            <div className="logo-container flex flex-col max-w-[25%] text-left text-wrap text-md">
+                <div className="logo-title font-semibold text-lg">
                     Logo
                 </div>
-                <div className="logo-content">
+                <div className="logo-content m-2">
                     <img src="https://via.placeholder.com/125" alt="logo" />
                 </div>
                 <div className="social-link flex m-2">
@@ -68,9 +68,9 @@ const Footer = () => {
 
     return (
         <footer className="flex w-full pt-4">
-            <div className="flex footer-container container w-full justify-center">
-                <div className="footer-content w-[80%]">
-                    <div className="flex flex-row flex-wrap w-full justify-between m-2">
+            <div className="flex footer-container w-full justify-center">
+                <div className="footer-content w-full">
+                    <div className="flex flex-row flex-wrap w-full justify-between content-start m-2">
                         <ContactCol />
                         <HelpOptionCol />
                         <LogoCol />

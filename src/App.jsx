@@ -6,33 +6,32 @@ import { useEffect, useState } from 'react'
 // import Login from './pages/Login';
 // import Regist from './pages/Regist';
 import Home from './pages/home/Home';
-// import Loading from './components/common/alert/Loading'
+import LoginRoute from './router/loginRoute';
+import Loading from './components/common/alert/Loading.jsx'
 // import Alert from './components/common/alert/Alert';
-// import OTPConfirm from './components/common/otp/otp-confirmation'
-// import ResetPass from './pages/reset-pass'
 
 // import SocketClient from './SocketClient'
-// import { getUserInfo } from './redux/action/authAction'
+import { getUserInfo } from './redux/action/authAction'
 // import { getCodeExerCises, getQueueCodeExercises } from './redux/action/codeExerciseAction'
 
 function App() {
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true);
     const dispatch = useDispatch()
+    const { auth } = useSelector((state) => state);
 
-    // // lấy thông tin user khi load trang
+    // lấy thông tin user khi load trang
     // useEffect(() => {
     //     dispatch(getUserInfo()).then(() => {
     //         setIsLoaded(true)
     //     })
     // }, [dispatch])
 
-    // lấy danh sách banners khi load trang
 
-    // lấy danh sách policy khi load trang
 
-    // if (!isLoaded) {
-    //     return <Loading />;
-    // }
+    if (!isLoaded) {
+        return <Loading />;
+    }
+
 
     return (
         <Router>
@@ -40,20 +39,8 @@ function App() {
                 <Alert /> */}
             <div className='main'>
                 <Routes>
-                    {/* <Route exact path='/regist' Component={Regist} /> */}
-                    {/* <Route exact path='/reset-pass' Component={ResetPass} /> */}
-                    {/* <Route exact path='/otp-confirmation' Component={OTPConfirm} /> */}
+                    <Route path='/auth/*' element={<LoginRoute />} />
                     <Route exact path='/' Component={Home} />
-                    {/* {(userType === "ADMIN" || userType === "USER") && auth.user.status === 0 && (
-                            <>
-                                <Route exact path='/user/:id' Component={UserProfileDetail} />
-                                <Route exact path='/post/:id' Component={PostDetail} />
-                                <Route exact path="/:page" Component={<PrivateRouter />} />
-                                <Route exact path="/:page/:id" Component={() => <PrivateRouter path="/:page/:id" />} />
-                                <Route exact path="/:page/:id/:action" Component={() => <PrivateRouter path="/:page/:id/:action" />} />
-                            </>
-                        )} */}
-
                 </Routes>
             </div>
             {/* </SocketClient> */}

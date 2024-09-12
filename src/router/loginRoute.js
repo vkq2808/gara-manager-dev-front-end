@@ -1,17 +1,13 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Login from '../pages/login/Login';
+import Regist from '../pages/regist/Regist';
 
-const LoginRoute = ({ component: Component, isAuthenticated, ...rest }) => (
-    <Route
-        {...rest}
-        render={(props) =>
-            isAuthenticated ? (
-                <Redirect to="/" />
-            ) : (
-                <Component {...props} />
-            )
-        }
-    />
+const LoginRoute = () => (
+    <Routes>=
+        <Route path='login' element={<Login />} />
+        <Route path='regist' element={<Regist />} />
+    </Routes>
 );
 
 export default LoginRoute;
