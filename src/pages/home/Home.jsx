@@ -414,8 +414,8 @@ const Home = () => {
                             ref={swiperRef}
                             className='cate-slider'
                         >
-                            {filteredCategories.concat(filteredCategories).map(cate => (
-                                <SwiperSlide key={"cate-slider-" + cate.id} className='cate-card flex flex-col items-center'>
+                            {filteredCategories.concat(filteredCategories).map((cate, index) => (
+                                <SwiperSlide key={"cate-slider-" + index} className='cate-card flex flex-col items-center'>
                                     <div className='cate-name text-center text-lg font-semibold'>{cate.name}</div>
                                     <a href={cate.link} className='w-full flex justify-center items-center content-center'>
                                         <img
@@ -427,8 +427,8 @@ const Home = () => {
                                     <div className="gradient-box" />
                                 </SwiperSlide>
                             ))}
-                            <div className="btn swiper-button-prev-category-slider" onClick={handlePrev} ><i class="fa-solid fa-chevron-left"></i></div>
-                            <div className="btn swiper-button-next-category-slider" onClick={handleNext} ><i class="fa-solid fa-chevron-right"></i></div>
+                            <div className="btn swiper-button-prev-category-slider" onClick={handlePrev} ><i className="fa-solid fa-chevron-left"></i></div>
+                            <div className="btn swiper-button-next-category-slider" onClick={handleNext} ><i className="fa-solid fa-chevron-right"></i></div>
                         </Swiper>
                     </div>
                 </div>

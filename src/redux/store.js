@@ -2,11 +2,11 @@ import { legacy_createStore as createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { thunk } from "redux-thunk"
 
-import rootReducer from './reducer/index'
+import combineReducers from './reducer/index'
 
-const store = createStore( rootReducer, applyMiddleware(thunk) )
+const store = createStore(combineReducers, applyMiddleware(thunk))
 
-const DataProvider = ({children}) => {
+const DataProvider = ({ children }) => {
     return (
         <Provider store={store}>
             {children}

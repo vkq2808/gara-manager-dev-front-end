@@ -1,7 +1,8 @@
 import axios from 'axios'
-const server_url = process.env.SERVER_URL
+const server_url = process.env.REACT_APP_API_URL
 
 export const getDataAPI = async (url, token) => {
+
     const res = await axios.get(`${server_url}/${url}`, {
         headers: { AUTHORIZATION: token }
     })
