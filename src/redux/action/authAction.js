@@ -1,4 +1,4 @@
-import { postDataAPI } from "../../utils/fetchData"
+import { postDataAPI, getDataAPI } from "../../utils/fetchData"
 import { GLOBALTYPES } from "./globalTypes";
 
 export const TYPES = {
@@ -11,9 +11,10 @@ export const login = (data) => async (dispatch) => {
 
         const res = await postDataAPI("auth/login", data)
 
+        console.log(res.data)
         dispatch({
             type: GLOBALTYPES.AUTH,
-            payload: { token: "Bearer " + res.data.access_token, user: res.data.user }
+            payload: { token: "Bearer " + res.data.accessToken, user: res.data.user }
         })
 
         dispatch({
@@ -28,6 +29,7 @@ export const login = (data) => async (dispatch) => {
         localStorage.setItem("refreshToken", "Bearer " + res.data.refresh_token)
 
         dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
+
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ERROR_ALERT,
@@ -43,22 +45,7 @@ export const regist = (data) => async (dispatch) => {
 
         const res = await postDataAPI("auth/regist", data)
 
-        dispatch({
-            type: GLOBALTYPES.AUTH,
-            payload: { token: "Bearer " + res.data.access_token, user: res.data.user, followers: res.data.followers, following: res.data.following }
-        })
-
-        dispatch({
-            type: GLOBALTYPES.USER_TYPE,
-            payload: res.data.user.role
-        })
-
         dispatch({ type: GLOBALTYPES.LOADING, payload: false })
-
-        localStorage.setItem("firstLogin", true)
-        localStorage.setItem("accessToken", "Bearer " + res.data.access_token)
-        localStorage.setItem("refreshToken", "Bearer " + res.data.refresh_token)
-
         dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
     } catch (err) {
         dispatch({
@@ -66,6 +53,21 @@ export const regist = (data) => async (dispatch) => {
             payload: err.response.data.msg
         })
         dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+    }
+}
+
+export const verifyEmail = ({ token, setIsLoading, setResult }) => async (dispatch) => {
+    try {
+        setIsLoading(true);
+        const res = await getDataAPI(`auth/verify-email/${token}`);
+        setResult(res.data.msg);
+        console.log(res.data.msg);
+        setIsLoading(false);
+        dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg });
+    } catch (err) {
+        setResult(err.response.data.msg);
+        setIsLoading(false);
+        dispatch({ type: GLOBALTYPES.ERROR_ALERT, payload: err.response.data.msg });
     }
 }
 
@@ -85,4 +87,5 @@ export const logout = () => async (dispatch) => {
 }
 export const getUserInfo = () => async (dispatch) => {
 }
+
 
