@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import DataProvider from './redux/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <DataProvider>
         <App />
