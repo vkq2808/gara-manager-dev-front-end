@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/header/Header';
 import Headroom from 'react-headroom';
 import './Home.css';
-import AdminSideBar from '../../components/admin/sideBar/AdminSideBar'
+import CommonSideBar from '../../components/common/sideBar/CommonSideBar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
 import Footer from '../../components/common/footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    const [isSideBarOpen, setIsSideBarOpen] = useState(false);
     const [categorySelected, setCategorySelected] = useState(null);
     const [isHoveringCategory, setIsHoveringCategory] = useState(false);
     const [isHoveringPanel, setIsHoveringPanel] = useState(false);
     const [isSmallDevice, setIsSmallDevice] = React.useState(false);
     const [cateSwiperItemCount, setCateSwiperItemCount] = React.useState(4);
+    const navigate = useNavigate();
     const policies = [
         {
             imgSrc: "https://file.hstatic.net/200000265255/file/static-icons-3_bf2d3625ab414276a01c726228fd46c0.png",
@@ -239,6 +240,10 @@ const Home = () => {
 
     const swiperRef = React.useRef(null);
 
+    const handleNavigate = (link) => {
+        navigate(link);
+    }
+
     const handleNext = () => {
         if (swiperRef.current) {
             swiperRef.current.swiper.slideNext();
@@ -278,19 +283,8 @@ const Home = () => {
 
     return (
         <div className='flex flex-col w-full h-auto items-center text-[#212529]'>
-            <div
-                onClick={() => setIsSideBarOpen(false)}
-                className={`BodyCover flex flex-row ${isSideBarOpen ? '' : 'hidden'}`}>
-            </div>
-            <div className={`SideBar pt-5 flex flex-col ${isSideBarOpen ? '' : 'hidden'}`}>
-                <AdminSideBar />
-            </div>
 
-            <Headroom className="Headroom w-full" disable={isSideBarOpen} >
-                <Header setIsSideBarOpen={setIsSideBarOpen} />
-            </Headroom>
-
-            <div className='body-container flex flex-col place-items-center items-center h-auto'>
+            <div className='body-container home flex flex-col place-items-center items-center h-auto'>
                 {/* Category Title and Banner */}
                 <div className="category-slider-container body-content flex flex-row items-start w-full h-full">
                     <div className="menu-category-container flex flex-col w-[20%]">
@@ -388,7 +382,7 @@ const Home = () => {
                 {/* BANNER  */}
                 <div className="banner-container flex flex-row justify-between flex-wrap w-full p-2">
                     {banners.map(banner => (
-                        <div key={banner.link} className='banner-card'>
+                        <div onClick={() => handleNavigate(banner.link)} key={banner.link} className='banner-card cursor-pointer' >
                             <a href={banner.link} className="banner-content">
                                 <img src={banner.imgSrc} alt="banner" className='w-auto h-[200px] my-3 mx-4' />
                             </a>
@@ -415,15 +409,16 @@ const Home = () => {
                             className='cate-slider'
                         >
                             {filteredCategories.concat(filteredCategories).map((cate, index) => (
-                                <SwiperSlide key={"cate-slider-" + index} className='cate-card flex flex-col items-center'>
+                                <SwiperSlide key={"cate-slider-" + index} className='cate-card flex flex-col items-center'
+                                    onClick={() => navigate(cate.link)}>
                                     <div className='cate-name text-center text-lg font-semibold'>{cate.name}</div>
-                                    <a href={cate.link} className='w-full flex justify-center items-center content-center'>
+                                    <div className='w-full flex justify-center items-center content-center'>
                                         <img
                                             src={cate.imgSrc}
                                             alt={cate.name}
                                             className='w-auto h-full max-h-[152px] object-cover'
                                         />
-                                    </a>
+                                    </div>
                                     <div className="gradient-box" />
                                 </SwiperSlide>
                             ))}
@@ -433,7 +428,6 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }

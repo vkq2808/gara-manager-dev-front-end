@@ -5,35 +5,41 @@ export const TYPES = {
     AUTH: "AUTH"
 }
 
+const REGIST_SUCESS = "Email sent to verify email";
+
 export const login = (data) => async (dispatch) => {
     try {
         dispatch({ type: GLOBALTYPES.LOADING, payload: true })
 
         const res = await postDataAPI("auth/login", data)
+        if (res.data.msg === "Login success") {
 
-        console.log(res.data)
-        dispatch({
-            type: GLOBALTYPES.AUTH,
-            payload: { token: "Bearer " + res.data.accessToken, user: res.data.user }
-        })
+            dispatch({
+                type: GLOBALTYPES.AUTH,
+                payload: { token: "Bearer " + res.data.accessToken, user: res.data.user }
+            })
 
-        dispatch({
-            type: GLOBALTYPES.USER_ROLE,
-            payload: res.data.user.role
-        })
+            dispatch({
+                type: GLOBALTYPES.USER_ROLE,
+                payload: res.data.user.role
+            })
 
-        dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
 
-        localStorage.setItem("firstLogin", true)
-        localStorage.setItem("accessToken", "Bearer " + res.data.access_token)
-        localStorage.setItem("refreshToken", "Bearer " + res.data.refresh_token)
+            localStorage.setItem("firstLogin", true)
+            localStorage.setItem("accessToken", "Bearer " + res.data.accessToken)
+            localStorage.setItem("refreshToken", "Bearer " + res.data.refreshToken)
 
-        dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
-
+            dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
+        }
+        else {
+            dispatch({ type: GLOBALTYPES.ERROR_ALERT, payload: res.data.msg })
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+        }
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ERROR_ALERT,
-            payload: err.response.data.msg
+            payload: err.response?.data?.msg
         })
         dispatch({ type: GLOBALTYPES.LOADING, payload: false })
     }
@@ -44,9 +50,14 @@ export const regist = (data) => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.LOADING, payload: true })
 
         const res = await postDataAPI("auth/regist", data)
+        if (res.data.msg === REGIST_SUCESS) {
 
-        dispatch({ type: GLOBALTYPES.LOADING, payload: false })
-        dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+            dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
+        } else {
+            dispatch({ type: GLOBALTYPES.ERROR_ALERT, payload: res.data.msg })
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+        }
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ERROR_ALERT,
@@ -61,9 +72,13 @@ export const verifyEmail = ({ token, setIsLoading, setResult }) => async (dispat
         setIsLoading(true);
         const res = await getDataAPI(`auth/verify-email/${token}`);
         setResult(res.data.msg);
-        console.log(res.data.msg);
-        setIsLoading(false);
-        dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg });
+        if (res.data.msg === "Email verified successfully") {
+            setIsLoading(false);
+            dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg });
+        } else {
+            setIsLoading(false);
+            dispatch({ type: GLOBALTYPES.ERROR_ALERT, payload: res.data.msg });
+        }
     } catch (err) {
         setResult(err.response.data.msg);
         setIsLoading(false);
@@ -76,7 +91,6 @@ export const logout = () => async (dispatch) => {
         localStorage.removeItem("firstLogin")
         localStorage.removeItem("accessToken")
         localStorage.removeItem("refreshToken")
-        await postDataAPI("auth/logout")
         window.location.href = "/"
     } catch (err) {
         dispatch({
@@ -86,6 +100,104 @@ export const logout = () => async (dispatch) => {
     }
 }
 export const getUserInfo = () => async (dispatch) => {
+
+    const firstLogin = localStorage.getItem("firstLogin")
+
+    if (firstLogin) {
+        const accessToken = localStorage.getItem("accessToken")
+        try {
+            const res = await postDataAPI("auth/get-user-info", null, accessToken)
+            dispatch({
+                type: GLOBALTYPES.AUTH,
+                payload: { token: accessToken, user: res.data.user }
+            })
+
+            dispatch({
+                type: GLOBALTYPES.USER_TYPE,
+                payload: res.data.user.role
+            })
+
+        } catch (err) {
+            if (err?.response?.status === 401) {
+                dispatch(refreshToken())
+            } else {
+                dispatch({
+                    type: GLOBALTYPES.ERROR_ALERT,
+                    payload: err?.response?.data?.msg
+                })
+            }
+        }
+    }
 }
 
+const refreshToken = () => async (dispatch) => {
+    const refreshToken = localStorage.getItem("refreshToken")
+    try {
+        var res = await postDataAPI("auth/refresh-token", null, refreshToken)
 
+        const accessToken = "Bearer " + res.data.accessToken
+
+        localStorage.setItem("accessToken", accessToken)
+
+        res = await postDataAPI("auth/get-user-info", null, accessToken)
+
+        dispatch({
+            type: GLOBALTYPES.AUTH,
+            payload: { token: accessToken, user: res.data.user }
+        })
+
+        dispatch({
+            type: GLOBALTYPES.USER_TYPE,
+            payload: res.data.user.role
+        })
+
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ERROR_ALERT,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+export const resetPassword = (data) => async (dispatch) => {
+    try {
+        dispatch({ type: GLOBALTYPES.LOADING, payload: true })
+
+        const res = await postDataAPI("auth/reset-password", data, localStorage.getItem("accessToken"))
+        if (res.data.msg === "Email sent to reset password") {
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+            dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
+        } else {
+            dispatch({ type: GLOBALTYPES.ERROR_ALERT, payload: res.data.msg })
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+        }
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ERROR_ALERT,
+            payload: err.response.data.msg
+        })
+        dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+    }
+}
+
+export const changePassword = (data) => async (dispatch) => {
+    try {
+        dispatch({ type: GLOBALTYPES.LOADING, payload: true })
+
+        const res = await postDataAPI("auth/change-password", data)
+        if (res.data.msg === "Password changed successfully") {
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+            dispatch({ type: GLOBALTYPES.SUCCESS_ALERT, payload: res.data.msg })
+            dispatch({ type: GLOBALTYPES.AUTH, payload: { user: res.data.user } })
+        } else {
+            dispatch({ type: GLOBALTYPES.ERROR_ALERT, payload: res.data.msg })
+            dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+        }
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ERROR_ALERT,
+            payload: err.response.data.msg
+        })
+        dispatch({ type: GLOBALTYPES.LOADING, payload: false })
+    }
+}

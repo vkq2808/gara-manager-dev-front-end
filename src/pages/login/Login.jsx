@@ -1,39 +1,51 @@
 import React, { useState } from 'react';
-import Headroom from 'react-headroom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
-import Header from '../../components/common/header/Header';
-import AdminSideBar from '../../components/admin/sideBar/AdminSideBar';
-import Footer from '../../components/common/footer/Footer';
 import { login } from '../../redux/action/authAction';
 
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
-    const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+    const initialState = { email: "", password: "" }
+
+    const [userData, setUserData] = useState(initialState)
+    const { email, password } = userData
+    const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
-    const { auth } = useSelector(state => state);
+    const auth = useSelector(state => state.auth);
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target
+        setUserData({ ...userData, [name]: value })
+        setErrors({ ...errors, [name]: "" });
+    }
 
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleLoginSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(login({ email, password }));
-    };
 
+        // Kiểm tra validation
+        let errors = {};
+        if (!email) {
+            errors.email = "Vui lòng nhập email của bạn";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errors.email = "Email không hợp lệ";
+        }
+
+        if (!password) {
+            errors.password = "Vui lòng nhập mật khẩu của bạn";
+        } else if (password.length < 6) {
+            errors.password = "Mật khẩu phải chứa ít nhất 6 ký tự";
+        }
+
+        if (Object.keys(errors).length === 0) {
+            dispatch(login({ email: userData.email, password: userData.password }));
+        }
+        else {
+            setErrors(errors);
+        }
+    }
 
     React.useEffect(() => {
         if (auth.token) navigate("/")
@@ -42,41 +54,36 @@ const Login = () => {
 
     return (
         <div className='flex flex-col w-full h-auto items-center text-[#212529]'>
-            <div
-                onClick={() => setIsSideBarOpen(false)}
-                className={`BodyCover flex flex-row ${isSideBarOpen ? '' : 'hidden'}`}>
-            </div>
-            <div className={`SideBar pt-5 flex flex-col ${isSideBarOpen ? '' : 'hidden'}`}>
-                <AdminSideBar />
-            </div>
+            <div className="body-box flex flex-row w-full justify-center items-center">
+                <div className="regist-form-container flex flex-col p-4 mt-4 items-center w-[30%] mx-10">
+                    <h2 className='form-title'>Đăng nhập</h2>
 
-            <Headroom className="Headroom w-full" disable={isSideBarOpen} >
-                <Header setIsSideBarOpen={setIsSideBarOpen} />
-            </Headroom>
-            <div className="body-box flex flex-row w-full justify-between items-center px-20">
-                <div className="form-container flex flex-col p-4 mt-4 items-center w-[30%]">
-                    <h2 className='form-title'>Login</h2>
+                    <form className='w-full flex justify-between mt-5' onSubmit={handleSubmit}>
+                        <div className="first-col flex flex-col w-full">
+                            <div className="form-outline mb-4 w-full">
+                                <label className="form-label" htmlFor="InputEmail" style={{ fontWeight: "bold", color: "#2F56A6" }}>Email</label>
+                                <input type="text" id="InputEmail" onChange={handleChangeInput} value={email} name="email" className="form-control form-control-lg"
+                                    placeholder="Nhập email của bạn" />
+                                {errors.email && <small style={{ fontWeight: "bold" }} className="text-danger">{errors.email}</small>}
+                            </div>
 
-                    <form onSubmit={handleLoginSubmit} className='form-card w-full m-4 flex flex-col '>
-                        <label>Email:</label>
-                        <input type="email" value={email} onChange={handleEmailChange} />
-                        <br />
-                        <label>Password:</label>
-                        <input type="password" value={password} onChange={handlePasswordChange} />
-                        <div className="flex flex-col items-end">
-                            <a href="/auth/regist">Don't have an account? Register here</a>
-                            <a href="/auth/forgot-password">Forgot password?</a>
+                            <div className="form-outline mb-4">
+                                <label className="form-label" htmlFor="InputPassword" style={{ fontWeight: "bold", color: "#2F56A6" }}>Mật khẩu</label>
+                                <input type="password" id="InputPassword" onChange={handleChangeInput} value={password} name="password" className="form-control form-control-lg"
+                                    placeholder="Nhập mật khẩu" />
+                                {errors.password && <small style={{ fontWeight: "bold" }} className="text-danger">{errors.password}</small>}
+                            </div>
+
+                            <div className="text-center mt-4 mb-4 pt-2">
+                                <button type="submit" className="btn btn-primary btn-lg"
+                                    style={{ width: "60%" }} >Đăng nhập</button>
+                            </div>
+                            <p className="small fw-bold mt-2 pt-1 mb-0">Bạn chưa có tài khoản? <a href="/auth/regist"
+                                className="link-danger">Đăng ký ngay</a></p>
                         </div>
-                        <br />
-                        <button type="submit" >Login</button>
-
                     </form>
                 </div>
-                <div className="image-container my-4">
-                    <img src={require('../../images/code.png')} alt="Code" />
-                </div>
             </div>
-            <Footer />
         </div >
     );
 };

@@ -1,10 +1,24 @@
 import React from 'react';
 import IconButton from './IconButton';
 import './Header.css';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ setIsSideBarOpen }) => {
+
+    const auth = useSelector(state => state.auth);
+    const nav = useNavigate();
+
     const handleClick = () => {
-        console.log('Button clicked');
+        console.log(auth);
+    };
+
+    const handleProfileClick = () => {
+        nav('/profile');
+    };
+
+    const handleSearch = () => {
+        console.log('Search clicked');
     };
 
     return (
@@ -13,7 +27,7 @@ const Header = ({ setIsSideBarOpen }) => {
                 <div className="HomeIcon flex m-2">
                     <a href="/">
                         <img
-                            className="w-[150px] md:w-[200px] lg:w-[250px]"
+                            className="w-[150px] md:w-[250px] lg:w-[250px]"
                             src="https://file.hstatic.net/200000317829/file/logo-02_9e045ad7d96c45e0ade84fd8ff5e8ca2.png"
                             alt="Home"
                         />
@@ -25,12 +39,21 @@ const Header = ({ setIsSideBarOpen }) => {
                         type="text"
                         placeholder="Search"
                     />
-                    <button className="s-btn block border w-auto rounded-lg py-2 ml-[5%]">
+                    <button onClick={handleSearch} className="s-btn block border w-auto rounded-lg py-2 ml-[5%]">
                         <IconButton iconClassName="fa-search" />
                     </button>
                 </div>
                 <div className="flex flex-row justify-start space-x-4 mt-2 md:mt-0">
-                    <IconButton iconClassName="fa-person" onClick={handleClick} />
+                    {!auth?.token && <div>
+                        <a href='/auth/login'>
+                            <span>Đăng nhập</span>
+                        </a>
+                        /
+                        <a href='/auth/regist'>
+                            <span>Đăng ký</span>
+                        </a>
+                    </div>}
+                    {auth?.token && <IconButton iconClassName="fa-user" onClick={handleProfileClick} />}
                     <IconButton iconClassName="fa-heart" onClick={handleClick} />
                     <IconButton iconClassName="fa-shopping-cart" onClick={handleClick} />
                     <IconButton iconClassName="fa-bars" onClick={() => setIsSideBarOpen(true)} />

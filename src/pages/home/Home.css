@@ -1,6 +1,7 @@
 :root {
     --yellow-color: #f8e71c;
     --cate-bg-color: #f7f7f7;
+    --side-bar-bg-color: #303030;
 }
 
 .swiper-container {
@@ -127,11 +128,11 @@
 }
 
 .SideBar {
-    background-color: #303030;
+    background-color: var(--side-bar-bg-color);
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 20;
+    z-index: 200;
     overflow-x: hidden;
     height: 100%;
     width: 35%;
@@ -152,6 +153,7 @@
     width: 100%;
     height: 100%;
     cursor: url('../../assets/go-back-arrow-svgrepo-com.png'), auto;
+    z-index: 199;
 }
 
 .Headroom {
@@ -159,7 +161,7 @@
     z-index: 9;
 }
 
-.body-container {
+.body-container.home {
     width: 1300px;
 }
 
@@ -197,6 +199,8 @@
     font-size: small;
 }
 
+
+
 @media screen and (max-width: 1256px) {
     .banner-container {
         justify-content: center;
@@ -226,4 +230,8 @@
     .slider-container {
         width: 100%;
     }
+}
+
+.cate-card:hover {
+    cursor: pointer;
 }
