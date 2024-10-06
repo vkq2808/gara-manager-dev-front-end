@@ -204,6 +204,7 @@
 @media screen and (max-width: 1256px) {
     .banner-container {
         justify-content: center;
+        flex-direction: column;
     }
 }
 
