@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './UserProfile.css';
 
-const UserProfile = () => {
+const UserProfile = ({ isEditing = false }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();

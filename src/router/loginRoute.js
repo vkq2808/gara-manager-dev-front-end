@@ -14,7 +14,7 @@ const LoginRoute = () => (
         <Route path='verify-email/*' element={<VerifyEmail />} />
         <Route path='logout' element={<Logout />} />
         <Route path='forgot-password' element={<EnterEmail />} />
-        <Route path='/reset-password/*' element={<EnterNewPassword />} />
+        <Route path='reset-password/*' element={<EnterNewPassword />} />
     </Routes>
 );
 
