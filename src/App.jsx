@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 
 // import Login from './pages/Login';
 // import Regist from './pages/Regist';
-import Home from './pages/home/Home';
 import LoginRoute from './router/loginRoute.jsx';
 import Loading from './components/common/alert/Loading.jsx'
 import Alert from './components/common/alert/Alert';
@@ -43,7 +42,6 @@ function App() {
                 <Routes>
                     <Route path='/auth/*' element={<LoginRoute />} />
                     <Route path='/product/*' element={<ProductRoute />} />
-                    <Route exact path='/' Component={Home} />
                     <Route path='/*' element={<HomeRoute />} />
                 </Routes>
                 <Footer />
