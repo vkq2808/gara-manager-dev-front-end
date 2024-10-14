@@ -8,6 +8,7 @@ import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../redux/action/productAction';
+import Helmet from 'react-helmet';
 
 const Home = () => {
     const [categorySelected, setCategorySelected] = useState(null);
@@ -16,6 +17,7 @@ const Home = () => {
     const [isSmallDevice, setIsSmallDevice] = React.useState(false);
     const [cateSwiperItemCount, setCateSwiperItemCount] = React.useState(4);
     const [newProducts, setNewProducts] = useState([]);
+    const [deviceWidth, setDeviceWidth] = useState(window.innerWidth);
 
     const { products } = useSelector(state => state.products);
     const navigate = useNavigate();
@@ -291,23 +293,30 @@ const Home = () => {
     }
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth <= 1000) {
-            setCateSwiperItemCount(2);
+        setDeviceWidth(window.innerWidth);
+        if (deviceWidth <= 768) {
             setIsSmallDevice(true);
-        } else {
+            setCateSwiperItemCount(2);
+        } else if (deviceWidth <= 1024) {
+            setIsSmallDevice(true);
+            setCateSwiperItemCount(3);
+        }
+        else {
             setIsSmallDevice(false);
-            if (window.innerWidth <= 1200) {
-                setCateSwiperItemCount(3);
-            }
+            setCateSwiperItemCount(4);
         }
     });
 
     return (
-        <div className='flex flex-col w-full h-auto items-center text-[#212529]'>
+        <>
+            <Helmet>
+                <title>UTE Gara - Trang chủ</title>
+                <meta name="description" content="UTE Gara - Trang chủ" />
+            </Helmet>
 
-            <div className='body-container home flex flex-col place-items-center items-center h-auto'>
+            <div className='home flex flex-col items-center justify-center h-auto w-[100vw] lg:w-[80vw]'>
                 {/* Category Title and Banner */}
-                <div className="category-slider-container body-content flex flex-row items-start w-full h-full">
+                <div className="category-slider-container body-content flex flex-row items-start w-[100vw] lg:w-[80vw] h-full">
                     <div className="menu-category-container flex flex-col w-[20%]">
                         <div className='category-title flex flex-row items-center p-2 bg-black text-[--yellow-color]'>
                             <i className='lni lni-menu' />
@@ -340,7 +349,6 @@ const Home = () => {
                             <div className='h-full w-full bg-black'>
                                 <Swiper
                                     modules={[Navigation, Pagination, Autoplay, EffectFade]}
-                                    spaceBetween={100}
                                     slidesPerView={1}
                                     navigation={{ nextEl: '.swiper-button-next-panel-slider', prevEl: '.swiper-button-prev-panel-slider' }}
                                     pagination={{ clickable: true }}
@@ -393,7 +401,7 @@ const Home = () => {
                                 ) || (
                                     categorySelected.products?.map(
                                         product => (
-                                            <div key={product.name} className="w-full product-name px-2 py-1 bg-slate-300 cursor-pointer hover:bg-[#ffffff]"
+                                            <div key={product.name} className="h-fit product-name px-2 py-1 bg-slate-300 cursor-pointer hover:bg-[#ffffff]"
                                                 onClick={() => handleNavigate(product.link)}>
                                                 {product.name}
                                             </div>
@@ -406,7 +414,7 @@ const Home = () => {
                 </div>
 
                 {/* POLICIES */}
-                <div className="policy-container flex flex-row justify-between flex-wrap pt-10 px-5">
+                <div className="policy-container w-[100vw] lg:w-[80vw] flex flex-row justify-between flex-wrap pt-10 px-5">
                     {policies.map(policy => (
                         <div key={policy.title} className="policy-card flex flex-col items-center mx-4">
                             <img src={policy.imgSrc} alt={policy.title} />
@@ -419,7 +427,7 @@ const Home = () => {
                 </div>
 
                 {/* BANNER  */}
-                <div className="banner-container flex flex-row justify-between flex-wrap w-full p-2">
+                <div className="banner-container flex flex-row justify-between flex-wrap w-[100vw] lg:w-[80vw] p-2">
                     {banners.map(banner => (
                         <div onClick={() => handleNavigate(banner.link)} key={banner.link} className='banner-card cursor-pointer' >
                             <a href={banner.link} className="banner-content">
@@ -431,14 +439,13 @@ const Home = () => {
                 </div>
                 {/* CATEGORIES AND SERVICES*/}
                 <div id="categories-and-services-container"
-                    className="flex flex-col w-full bg-white">
+                    className="flex flex-col w-[100vw] lg:w-[80vw] bg-white">
                     <h2 className='underline-title m-2 w-full'>
                         DANH MỤC SẢN PHẨM VÀ DỊCH VỤ
                     </h2>
-                    <div className={`slider-container block max-w-[1300px] p-2 px-10`}>
+                    <div className={`w-full slider-container block max-w-[1300px] p-2 px-10`}>
                         <Swiper
                             modules={[Navigation, Pagination, EffectFade]}
-                            spaceBetween={10}
                             slidesPerView={cateSwiperItemCount}
                             navigation={{ nextEl: '.swiper-button-next-category-slider', prevEl: '.swiper-button-prev-category-slider' }}
                             pagination={{ clickable: true }}
@@ -467,7 +474,7 @@ const Home = () => {
                     </div>
                 </div>
                 {/* SẢN PHẨM MỚI */}
-                <div className="w-full flex flex-col items-start justify-start">
+                <div className="w-[100vw] lg:w-[80vw] flex flex-col items-start justify-start">
                     <h2 className='underline-title m-2 w-full'>
                         SẢN PHẨM MỚI
                     </h2>
@@ -492,8 +499,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-
-        </div>
+        </>
     );
 }
 export default Home;

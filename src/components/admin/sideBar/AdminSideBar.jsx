@@ -1,6 +1,6 @@
 import React from "react";
 import './AdminSideBar.css'
-import IconButton from "../../common/header/IconButton";
+import { IconButton } from "../../common";
 
 const AdminSideBar = () => {
     const handleClick = () => {
