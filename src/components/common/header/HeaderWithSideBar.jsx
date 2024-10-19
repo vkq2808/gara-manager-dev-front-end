@@ -18,7 +18,7 @@ const HeaderWithSideBar = ({ user }) => {
             <div className={`SideBar pt-5 flex flex-col ${isSideBarOpen ? '' : 'hidden'}`}>
                 <SideBarLanding setIsSideBarOpen={setIsSideBarOpen} user={user} />
             </div>
-            <Headroom className="Headroom w-full z-[101]" disable={isSideBarOpen} >
+            <Headroom className="Headroom w-full z-[101]" style={{ display: 'flex', justifyContent: 'center', justifyItems: 'center' }} disable={isSideBarOpen} >
                 <Header setIsSideBarOpen={setIsSideBarOpen} />
             </Headroom>
         </div>

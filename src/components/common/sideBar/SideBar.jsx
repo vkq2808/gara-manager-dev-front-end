@@ -1,21 +1,20 @@
 import React from "react";
 import './SideBar.css'
 import IconButton from "../button/IconButton";
-import SideBarItem from "./SideBarItem";
+import { SideBarItem } from "..";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ setIsSideBarOpen, user }) => {
     const naviagte = useNavigate();
     const handleSearch = () => {
-
     }
-    const handleNavigate = (link) => {
+    const handleClick = (link) => {
         setIsSideBarOpen(false);
         naviagte(link);
     }
 
     const sideBarItems = [
-        { name: "Profile", iconClassName: "fa-user", link: `/profile/${user?.userId}` },
+        { name: "Profile", iconClassName: "fa-user", link: `/profile` },
         { name: "Settings", iconClassName: "fa-cog", link: "/settings" },
         { name: "About", iconClassName: "fa-info", link: "/about" },
         { name: "Logout", iconClassName: "fa-sign-out", link: "/auth/logout" }
@@ -28,7 +27,7 @@ const SideBar = ({ setIsSideBarOpen, user }) => {
                 <IconButton iconClassName={"fa-search"} onClick={handleSearch} />
             </div >
             {sideBarItems.map((item, index) => (
-                <SideBarItem key={index} handleNavigate={() => handleNavigate(item.link)} name={item.name} iconClassName={item.iconClassName} />
+                <SideBarItem key={index} handleClick={() => handleClick(item.link)} text={item.name} iconClassName={item.iconClassName} />
             ))}
         </div >
     )

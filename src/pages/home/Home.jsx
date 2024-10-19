@@ -32,7 +32,6 @@ const Home = () => {
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // So sánh chính xác theo ngày
             .slice(0, 4); // Lấy 4 sản phẩm mới nhất
         setNewProducts(newProductsUpdate);
-
     }, [products, dispatch]);
 
     const policies = [
@@ -297,7 +296,7 @@ const Home = () => {
         if (deviceWidth <= 768) {
             setIsSmallDevice(true);
             setCateSwiperItemCount(2);
-        } else if (deviceWidth <= 1024) {
+        } else if (deviceWidth <= 1424) {
             setIsSmallDevice(true);
             setCateSwiperItemCount(3);
         }
@@ -431,7 +430,7 @@ const Home = () => {
                     {banners.map(banner => (
                         <div onClick={() => handleNavigate(banner.link)} key={banner.link} className='banner-card cursor-pointer' >
                             <a href={banner.link} className="banner-content">
-                                <img src={banner.imgSrc} alt="banner" className='w-auto h-[200px] my-3 mx-4' />
+                                <img src={banner.imgSrc} alt="banner" className='w-auto h-[190px] my-3 mx-2' />
                             </a>
                             <div className="gradient-box" />
                         </div>
